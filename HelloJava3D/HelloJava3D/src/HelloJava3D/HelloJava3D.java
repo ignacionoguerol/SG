@@ -25,8 +25,6 @@ public class HelloJava3D {
     ControlWindow controlWindow = new ControlWindow (canvas, universe);
     // Se muestra la ventana principal de la aplicación
     controlWindow.showWindow ();
-    
-    /*hola*/
   }
   
 }
