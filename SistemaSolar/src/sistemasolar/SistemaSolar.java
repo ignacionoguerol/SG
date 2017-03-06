@@ -135,6 +135,14 @@ public class SistemaSolar {
         //*********************************************************************
         
         
+        
+        // Se crea y se añade un astro al universo
+        Astro tierra = new Astro (4000); 
+        root.addChild(tierra);
+        
+        
+        
+        
             // Se crea el universo. La parte de la vista
             SimpleUniverse universe = createUniverse (canvas);
             
