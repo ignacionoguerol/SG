@@ -73,7 +73,7 @@ public class SistemaSolar {
         //    - Se le da el aspecto creado antes. 
         
         Primitive sphere = new Sphere (1.0f, Primitive.GENERATE_TEXTURE_COORDS 
-                | Primitive.GENERATE_NORMALS_INWARD, appearance);
+                | Primitive.GENERATE_NORMALS_INWARD, 64, appearance);
         
         // Se crea la rama para la geometría del fondo, 
         BranchGroup bgGeometry = new BranchGroup ();
@@ -134,10 +134,17 @@ public class SistemaSolar {
         //*********************END Lights**************************************
         //*********************************************************************
         
+        Astro Tierra = new Astro(2000);
+        root.addChild(Tierra);
         
-            // Se crea el universo. La parte de la vista
+        
+        //*********************************************************************
+        //*********************Creación Universo*******************************
+        //*********************************************************************
+            // Se crea el universo simple. La parte de la vista
             SimpleUniverse universe = createUniverse (canvas);
             
+             // Se optimiza la escena y se cuelga del universo
             root.compile();
             universe.addBranchGraph(root);
     
@@ -148,19 +155,22 @@ public class SistemaSolar {
     }
     
     private static SimpleUniverse createUniverse (Canvas3D canvas) {
-    // Se crea manualmente un ViewingPlatform para poder personalizarlo y asignárselo al universo
+    // Se crea manualmente un ViewingPlatform para poder personalizarlo y
+    //asignárselo al universo
     ViewingPlatform viewingPlatform = new ViewingPlatform();
     
     // La transformación de vista, dónde se está, a dónde se mira, Vup
     TransformGroup viewTransformGroup = viewingPlatform.getViewPlatformTransform();
     Transform3D viewTransform3D = new Transform3D();
-    viewTransform3D.lookAt (new Point3d (20,20,20), new Point3d (0,0,0), new Vector3d (0,1,0));
+    viewTransform3D.lookAt (new Point3d (20,20,20), new Point3d (0,0,0), new 
+        Vector3d (0,1,0));
     viewTransform3D.invert();
     viewTransformGroup.setTransform (viewTransform3D);
 
     // El comportamiento, para mover la camara con el raton
     OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
-    orbit.setSchedulingBounds(new BoundingSphere(new Point3d (0.0f, 0.0f, 0.0f), 100.0f));
+    orbit.setSchedulingBounds(new BoundingSphere(new Point3d (0.0f, 0.0f, 0.0f), 
+            100.0f));
     orbit.setZoomFactor (2.0f);
     viewingPlatform.setViewPlatformBehavior(orbit);
     

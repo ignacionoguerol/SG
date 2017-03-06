@@ -74,7 +74,7 @@ class TheScene extends BranchGroup {
     
     return bg;
   }
-  
+  /*
   void setAppearance (Appearances ap) {  
     // Cambia el material de todas las primitivas 
     //   Cuando se cambien en la escena ya tienen el material cambiado
@@ -94,5 +94,5 @@ class TheScene extends BranchGroup {
       value.resume();
     else
       value.pause();
-  }
+  }*/
 }
