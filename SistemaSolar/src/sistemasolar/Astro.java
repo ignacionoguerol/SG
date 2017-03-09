@@ -14,10 +14,14 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Group;
 import javax.media.j3d.RotationInterpolator;
+import javax.media.j3d.RotationPathInterpolator;
 import javax.media.j3d.Texture;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Point3d;
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector3f;
 
 /**
  *
@@ -30,7 +34,12 @@ public class Astro extends BranchGroup{
     /// El objeto que controla la rotación continua de la figura
     private Alpha value;
     
-    Astro(int velocidadRotacion){
+    TransformGroup rotation;
+    
+    TransformGroup posicionar;
+    
+    Astro(float diametro, int velocidadRotacion, int radioSeparacion, 
+            String aspecto){
         
         figure = new BranchGroup();
    
@@ -42,24 +51,24 @@ public class Astro extends BranchGroup{
     Appearance appearance = new Appearance ();
     
     //Cargo una textura y se la añado al aspecto creado. 
-    Texture texture = new TextureLoader ("imgs/tierra.jpg", null).getTexture();
+    Texture texture = new TextureLoader (aspecto, null).getTexture();
     appearance.setTexture (texture);
     
-    Primitive sphere = new Sphere (3.0f, Primitive.GENERATE_TEXTURE_COORDS 
+    Primitive sphere = new Sphere (diametro, Primitive.GENERATE_TEXTURE_COORDS 
                 | Primitive.GENERATE_NORMALS_INWARD, 64,appearance);
     
     //añadimos la esfera al BG.
     figure.addChild(sphere);
     
     //Se crea la rotación
-    TransformGroup rotation = createRotation (velocidadRotacion);
+    rotation = createRotation (velocidadRotacion);
      
     //Se cuelga la figura de la rotación.
     rotation.addChild (figure);
     
-    // Se cuelga rotación de la escena
-    this.addChild(rotation);
-     
+    posicionar = movePlanet(radioSeparacion);
+    
+    posicionar.addChild(rotation);
     
     }
     
@@ -79,11 +88,22 @@ public class Astro extends BranchGroup{
     RotationInterpolator rotator = new RotationInterpolator (value, transform, yAxis,
         0.0f, (float) Math.PI*2.0f);
     // Se le pone el entorno de activación y se activa
-    rotator.setSchedulingBounds(new BoundingSphere (new Point3d (0.0, 0.0, 0.0 ), 100.0));
+    rotator.setSchedulingBounds(new BoundingSphere (new Point3d (0.0, 0.0, 0.0 ), 500.0));
     rotator.setEnable(true);
     // Se cuelga del grupo de transformación y este se devuelve
     transform.addChild(rotator);
     return transform;
   }
+    
+    private TransformGroup movePlanet (int radio) {
+    // Se mueve un planeta hasta el punto donde puede empezar a transladarse
+    Transform3D movePlanet = new Transform3D();
+    movePlanet.set (new Vector3f (radio, 0.0f, 0.0f));
+    TransformGroup transform = new TransformGroup (movePlanet);
+    return transform;
+    
+  }
+    
+    
     
 }

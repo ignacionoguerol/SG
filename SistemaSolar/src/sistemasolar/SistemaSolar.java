@@ -134,7 +134,10 @@ public class SistemaSolar {
         //*********************END Lights**************************************
         //*********************************************************************
         
-        Astro Tierra = new Astro(2000);
+        Estrella Sol = new Estrella(2, 2000, 0, "imgs/sol.jpg");
+        root.addChild(Sol);
+        
+        Planeta Tierra = new Planeta((float)0.5, 3000, 10, "imgs/tierra.jpg", 4000);
         root.addChild(Tierra);
         
         
@@ -170,8 +173,8 @@ public class SistemaSolar {
     // El comportamiento, para mover la camara con el raton
     OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
     orbit.setSchedulingBounds(new BoundingSphere(new Point3d (0.0f, 0.0f, 0.0f), 
-            100.0f));
-    orbit.setZoomFactor (2.0f);
+            500.0f));
+    orbit.setZoomFactor (4.0f);
     viewingPlatform.setViewPlatformBehavior(orbit);
     
     // Se establece el angulo de vision a 45 grados y el plano de recorte trasero
