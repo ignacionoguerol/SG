@@ -22,7 +22,7 @@ public class Planeta extends Astro{
         super(diametro, velocidadRotacion, radioSeparacion, aspecto);
         
        
-        TransformGroup luna = addSatelite(tiempoTraslacion);
+        TransformGroup luna = addSatelite(2000);
         posicionar.addChild(luna);
         
         TransformGroup trasladar = traslacion(tiempoTraslacion);

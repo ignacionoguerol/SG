@@ -45,7 +45,7 @@ public class SistemaSolar {
         // Se obtiene la configuración gráfica del sistema y se crea el Canvas3D que va a mostrar la imagen
         Canvas3D canvas = new Canvas3D (SimpleUniverse.getPreferredConfiguration());
         // Se le da el tamaño deseado
-        canvas.setSize(1280, 768);
+        canvas.setSize(1920, 1080);
         
         //Se declara el origen del arbol
         BranchGroup root = new BranchGroup();
@@ -134,7 +134,7 @@ public class SistemaSolar {
         //*********************END Lights**************************************
         //*********************************************************************
         
-        Estrella Sol = new Estrella(2, 2000, 0, "imgs/sol.jpg");
+        Estrella Sol = new Estrella(2, 5000, 0, "imgs/sol.jpg");
         root.addChild(Sol);
         
         Planeta Tierra = new Planeta((float)0.5, 3000, 10, "imgs/tierra.jpg", 4000);
