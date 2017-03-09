@@ -137,8 +137,16 @@ public class SistemaSolar {
         
         
         // Se crea y se añade un astro al universo
-        Astro tierra = new Astro (4000, 50); 
+        Astro tierra = new Astro (4000, 50, 10); 
         root.addChild(tierra);
+        
+        
+        //Probando si puedo crear dos planetas y como de lejos salen
+        
+        Astro marte = new Astro (4000, 0, 0); 
+        root.addChild(marte);
+        
+        
         
         
         

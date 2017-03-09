@@ -31,7 +31,7 @@ public class Astro extends BranchGroup{
   /// El objeto que controla la rotación continua de la figura
   private Alpha value;
   
-  Astro (int tiempo_rot, int diametro) { 
+  Astro (int tiempo_rot, int diametro, int tiempo_orbit) { 
     // Se crea la transformación para la rotación
     TransformGroup rotation = createRotation (tiempo_rot);
     
@@ -60,8 +60,15 @@ public class Astro extends BranchGroup{
     //Se cuelga la rotación de este movimiento
     mover.addChild(rotation);
     
-    // Se cuelga rotación de la escena
-    this.addChild(mover);
+    // Se crea la orbita del el planeta
+    TransformGroup orbit = createOrbit (tiempo_orbit);
+    
+    //Se cuelga mover de orbit
+    orbit.addChild(mover);
+    
+    
+    // Se cuelga la orbita de la escena
+    this.addChild(orbit);
   }
   
   private TransformGroup createRotation (int tiempo_rot) {
@@ -86,10 +93,35 @@ public class Astro extends BranchGroup{
     return transform;
   }
   
-  /*private TransformGroup createTranslation (int tiempo_rot) {
+  private TransformGroup createOrbit (int tiempo_orbit) {
+      
     // Se crea el grupo que contendrá la transformación de translacion
+    // Todo lo que cuelgue de él rotará
+    TransformGroup transform = new TransformGroup ();
     
-  }*/
+    // Se le permite que se cambie en tiempo de ejecución
+    transform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+    
+    // Se crea la matriz de rotación
+    Transform3D yAxis = new Transform3D ();
+    // Se crea un interpolador, un valor numérico que se ira modificando en tiempo de ejecución
+    value = new Alpha (-1, Alpha.INCREASING_ENABLE, 0, 0, 
+            tiempo_orbit, 0, 0, 0, 0, 0);
+    // Se crea el interpolador de rotación, las figuras iran rotando
+    RotationInterpolator orbitator = new RotationInterpolator (value, transform, yAxis,
+        0.0f, (float) Math.PI*2.0f);
+    
+    orbitator.setSchedulingBounds(new BoundingSphere (new Point3d (0.0, 0.0, 0.0 ), 100.0));
+    orbitator.setEnable(true);
+        
+        
+    // Se cuelga del grupo de transformación y este se devuelve
+    transform.addChild(orbitator);    
+    return transform;
+    
+    
+  }
+  
   
   private TransformGroup movePlanet (int diametro) {
     // Se mueve un planeta hasta el punto donde puede empezar a transladarse
