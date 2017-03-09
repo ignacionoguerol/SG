@@ -122,7 +122,7 @@ public class SistemaSolar {
         aLight.setInfluencingBounds (new BoundingSphere (new Point3d 
         (0.0, 0.0, 0.0), 100.0));
         aLight.setCapability(Light.ALLOW_STATE_WRITE);
-        aLight.setEnable (true);
+       aLight.setEnable (true);
         
         //Se añade la luz luz al branch de las luces
         branchLight.addChild(aLight);
@@ -134,11 +134,77 @@ public class SistemaSolar {
         //*********************END Lights**************************************
         //*********************************************************************
         
-        Estrella Sol = new Estrella(2, 5000, 0, "imgs/sol.jpg");
+        
+        //*********************************************************************
+        //*********************ESCENA******************************************
+        //*********************************************************************
+        
+        //Creacion SOL
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen
+        Estrella Sol = new Estrella(4, 10000, 0, "imgs/sol.jpg");
         root.addChild(Sol);
         
-        Planeta Tierra = new Planeta((float)0.5, 3000, 10, "imgs/tierra.jpg", 4000);
-        root.addChild(Tierra);
+        //Creacion Mercurio
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen, velocidad traslacion
+        Planeta mercurio = new Planeta((float)0.48, 2400, (float) 5.7, "imgs/mercurio.jpg", 10000);
+        root.addChild(mercurio);
+        
+        //Creacion Venus
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen, velocidad traslacion
+        Planeta venus = new Planeta((float)1.2, 5860, (float) 10.8, "imgs/venus.jpg",20000);
+        root.addChild(venus);
+        
+        //Creacion Tierra
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen, velocidad traslacion
+        Planeta tierra = new Planeta((float)1.2, 1000, (float) 14.9, "imgs/tierra.jpg", 30000);
+        Satelite luna = new Satelite((float)0.2, 1000, 2, "imgs/luna.jpg");
+        tierra.addSatelite(luna, 10000);
+        root.addChild(tierra);
+        
+        //Creacion Marte
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen, velocidad traslacion
+        Planeta marte = new Planeta((float)0.6, 5860, (float) 18.8, "imgs/marte.jpg", 40000);
+        
+        //Creacion Satelite Fobos
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen
+        Satelite Fobos = new Satelite((float)0.2, 1000, 2, "imgs/fobos.jpg");
+        //Adicion de satelite a planeta
+        //Parametros: satelite, velocidad traslacion
+        marte.addSatelite(Fobos, 10000);
+
+        //Creacion Satelite Deimos
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen
+        Satelite Deimos = new Satelite((float)0.2, 2000, 3, "imgs/deimos.jpg");
+         //Adicion de satelite a planeta
+        //Parametros: satelite, velocidad traslacion
+        marte.addSatelite(Deimos, 20000);
+        root.addChild(marte);
+        
+        //Creacion Jupiter
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen, velocidad traslacion
+        Planeta jupiter = new Planeta((float)2, 5860, (float) 24.8, "imgs/jupiter.jpg", 50000);
+        
+        //Creacion Satelite io
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen
+         Satelite io = new Satelite((float)0.2, 1000, 3, "imgs/io.jpg");
+          //Adicion de satelite a planeta
+        //Parametros: satelite, velocidad traslacion
+        jupiter.addSatelite(io, 10000);
+        
+        //Creacion Satelite europa
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen
+         Satelite europa = new Satelite((float)0.2, 2000, 4, "imgs/europa.jpg");
+          //Adicion de satelite a planeta
+        //Parametros: satelite, velocidad traslacion
+        jupiter.addSatelite(europa, 20000);
+        
+        //Creacion Satelite calisto
+        //Parametros: tamaño, velocidad rotacion, distancia origen, imagen
+         Satelite calisto = new Satelite((float)0.2, 3000, 5, "imgs/calisto.jpg");
+          //Adicion de satelite a planeta
+        //Parametros: satelite, velocidad traslacion
+        jupiter.addSatelite(calisto, 30000);
+        root.addChild(jupiter);
         
         
         //*********************************************************************
@@ -165,7 +231,7 @@ public class SistemaSolar {
     // La transformación de vista, dónde se está, a dónde se mira, Vup
     TransformGroup viewTransformGroup = viewingPlatform.getViewPlatformTransform();
     Transform3D viewTransform3D = new Transform3D();
-    viewTransform3D.lookAt (new Point3d (20,20,20), new Point3d (0,0,0), new 
+    viewTransform3D.lookAt (new Point3d (50,50,50), new Point3d (0,0,0), new 
         Vector3d (0,1,0));
     viewTransform3D.invert();
     viewTransformGroup.setTransform (viewTransform3D);
@@ -174,7 +240,7 @@ public class SistemaSolar {
     OrbitBehavior orbit = new OrbitBehavior(canvas, OrbitBehavior.REVERSE_ALL);
     orbit.setSchedulingBounds(new BoundingSphere(new Point3d (0.0f, 0.0f, 0.0f), 
             500.0f));
-    orbit.setZoomFactor (4.0f);
+    orbit.setZoomFactor (5.0f);
     viewingPlatform.setViewPlatformBehavior(orbit);
     
     // Se establece el angulo de vision a 45 grados y el plano de recorte trasero

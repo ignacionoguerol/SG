@@ -11,7 +11,7 @@ package sistemasolar;
  */
 public class Estrella extends Astro{
     
-    public Estrella(float diametro, int velocidadRotacion, int radioSeparacion, String aspecto) {
+    public Estrella(float diametro, int velocidadRotacion, float radioSeparacion, String aspecto) {
         super(diametro, velocidadRotacion, radioSeparacion, aspecto);
         
         this.addChild(super.posicionar);

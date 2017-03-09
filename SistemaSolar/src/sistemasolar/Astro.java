@@ -38,7 +38,7 @@ public class Astro extends BranchGroup{
     
     TransformGroup posicionar;
     
-    Astro(float diametro, int velocidadRotacion, int radioSeparacion, 
+    Astro(float diametro, int velocidadRotacion, float radioSeparacion, 
             String aspecto){
         
         figure = new BranchGroup();
@@ -95,7 +95,7 @@ public class Astro extends BranchGroup{
     return transform;
   }
     
-    private TransformGroup movePlanet (int radio) {
+    private TransformGroup movePlanet (float radio) {
     // Se mueve un planeta hasta el punto donde puede empezar a transladarse
     Transform3D movePlanet = new Transform3D();
     movePlanet.set (new Vector3f (radio, 0.0f, 0.0f));

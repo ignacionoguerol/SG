@@ -18,17 +18,12 @@ import javax.vecmath.Point3d;
  */
 public class Planeta extends Astro{
     
-    public Planeta(float diametro, int velocidadRotacion, int radioSeparacion, String aspecto, int tiempoTraslacion) {
+    public Planeta(float diametro, int velocidadRotacion, float radioSeparacion, String aspecto, int tiempoTraslacion) {
         super(diametro, velocidadRotacion, radioSeparacion, aspecto);
-        
-       
-        TransformGroup luna = addSatelite((float)0.1, 1000, 3, "imgs/luna.jpg", 1000);
-        posicionar.addChild(luna);
         
         TransformGroup trasladar = traslacion(tiempoTraslacion);
         trasladar.addChild(super.posicionar);
         
-       
         this.addChild(trasladar);
     }
     
@@ -56,13 +51,11 @@ public class Planeta extends Astro{
         return grupoTraslacion;
     }
     
-    private TransformGroup addSatelite(float tamaño, int tiempoRotacion, 
-            int radioSeparacion, String aspecto, int tiempoTraslacion){
-         Satelite Luna = new Satelite(tamaño, tiempoRotacion, radioSeparacion, aspecto);
-        
+    void addSatelite(Satelite sat, int tiempoTraslacion){
+         
         TransformGroup trasladar = traslacion(tiempoTraslacion);
-        trasladar.addChild(Luna);
-        return trasladar;
+        trasladar.addChild(sat);
+        posicionar.addChild(trasladar);
     }
     
 }

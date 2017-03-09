@@ -11,7 +11,7 @@ package sistemasolar;
  */
 public class Satelite extends Astro{
     
-    public Satelite(float diametro, int velocidadRotacion, int radioSeparacion, String aspecto) {
+    public Satelite(float diametro, int velocidadRotacion, float radioSeparacion, String aspecto) {
         super(diametro, velocidadRotacion, radioSeparacion, aspecto);
         
         this.addChild(super.posicionar);
