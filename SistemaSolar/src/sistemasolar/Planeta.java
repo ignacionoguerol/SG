@@ -21,33 +21,47 @@ public class Planeta extends Astro{
     public Planeta(float diametro, int velocidadRotacion, int radioSeparacion, String aspecto, int tiempoTraslacion) {
         super(diametro, velocidadRotacion, radioSeparacion, aspecto);
         
+       
+        TransformGroup luna = addSatelite(tiempoTraslacion);
+        posicionar.addChild(luna);
+        
         TransformGroup trasladar = traslacion(tiempoTraslacion);
         trasladar.addChild(super.posicionar);
+        
+       
         this.addChild(trasladar);
     }
     
     private TransformGroup traslacion(int tiempoTraslacion){
         // Se crea el nodo de transformación: Todo lo que cuelgue de él rotará
-        TransformGroup t = new TransformGroup (); 
+        TransformGroup grupoTraslacion = new TransformGroup (); 
         // Se le permite que se cambie en tiempo de ejecución
-        t.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE); 
+        grupoTraslacion.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE); 
         // Se crea la matriz de rotación
-        Transform3D t3d = new Transform3D (); 
+        Transform3D traslacion = new Transform3D (); 
         // Valor numérico que se ira modificando en tiempo de ejecución
         Alpha value = new Alpha (-1, Alpha.INCREASING_ENABLE, 0, 0, 
                 tiempoTraslacion, 0, 0, 0, 0, 0); 
         // Se crea el interpolador de rotación, las figuras iran rotando
         RotationInterpolator rotatorAround = new RotationInterpolator 
-        (value, t, t3d, 0.0f, (float) Math.PI*2.0f); 
+        (value, grupoTraslacion, traslacion, 0.0f, (float) Math.PI*2.0f); 
         // Se le pone el entorno de activación
         rotatorAround.setSchedulingBounds(new BoundingSphere 
         (new Point3d (0.0, 0.0, 0.0 ), 500.0)); 
         // Se activa
         rotatorAround.setEnable(true); 
         // Se cuelga del grupo de transformación
-        t.addChild(rotatorAround); 
+        grupoTraslacion.addChild(rotatorAround); 
         
-        return t;
+        return grupoTraslacion;
+    }
+    
+    private TransformGroup addSatelite(int tiempoTraslacion){
+         Satelite Luna = new Satelite((float)0.2, 1000, 2, "imgs/luna.jpg");
+        
+        TransformGroup trasladar = traslacion(tiempoTraslacion);
+        trasladar.addChild(Luna);
+        return trasladar;
     }
     
 }
