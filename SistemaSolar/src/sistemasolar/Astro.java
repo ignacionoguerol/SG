@@ -18,6 +18,7 @@ import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3d;
 import javax.media.j3d.Texture;
+import javax.vecmath.Vector3f;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Astro extends BranchGroup{
   /// El objeto que controla la rotación continua de la figura
   private Alpha value;
   
-  Astro (int tiempo_rot) { 
+  Astro (int tiempo_rot, int diametro) { 
     // Se crea la transformación para la rotación
     TransformGroup rotation = createRotation (tiempo_rot);
     
@@ -53,8 +54,14 @@ public class Astro extends BranchGroup{
     // Y se cuelga de la rotación
     rotation.addChild (bg);
     
+    // Se crea la transformación para mover el planeta
+    TransformGroup mover = movePlanet (diametro);
+    
+    //Se cuelga la rotación de este movimiento
+    mover.addChild(rotation);
+    
     // Se cuelga rotación de la escena
-    this.addChild(rotation);
+    this.addChild(mover);
   }
   
   private TransformGroup createRotation (int tiempo_rot) {
@@ -78,5 +85,21 @@ public class Astro extends BranchGroup{
     transform.addChild(rotator);
     return transform;
   }
+  
+  /*private TransformGroup createTranslation (int tiempo_rot) {
+    // Se crea el grupo que contendrá la transformación de translacion
+    
+  }*/
+  
+  private TransformGroup movePlanet (int diametro) {
+    // Se mueve un planeta hasta el punto donde puede empezar a transladarse
+    
+    Transform3D movePlanet = new Transform3D();
+    movePlanet.set (new Vector3f (diametro, 0.0f, 0.0f));
+    TransformGroup transform = new TransformGroup (movePlanet);
+    return transform;
+    
+  }
+  
     
 }
