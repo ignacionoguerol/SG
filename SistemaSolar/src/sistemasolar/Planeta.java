@@ -22,7 +22,7 @@ public class Planeta extends Astro{
         super(diametro, velocidadRotacion, radioSeparacion, aspecto);
         
        
-        TransformGroup luna = addSatelite(2000);
+        TransformGroup luna = addSatelite((float)0.1, 1000, 3, "imgs/luna.jpg", 1000);
         posicionar.addChild(luna);
         
         TransformGroup trasladar = traslacion(tiempoTraslacion);
@@ -56,8 +56,9 @@ public class Planeta extends Astro{
         return grupoTraslacion;
     }
     
-    private TransformGroup addSatelite(int tiempoTraslacion){
-         Satelite Luna = new Satelite((float)0.2, 1000, 2, "imgs/luna.jpg");
+    private TransformGroup addSatelite(float tamaño, int tiempoRotacion, 
+            int radioSeparacion, String aspecto, int tiempoTraslacion){
+         Satelite Luna = new Satelite(tamaño, tiempoRotacion, radioSeparacion, aspecto);
         
         TransformGroup trasladar = traslacion(tiempoTraslacion);
         trasladar.addChild(Luna);
